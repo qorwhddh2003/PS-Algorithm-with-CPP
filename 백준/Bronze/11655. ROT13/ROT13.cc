@@ -2,21 +2,20 @@
 using namespace std;
 
 int asc;
-string str, ret;
+string str;
 int main(){
     getline(cin, str);
     
-    for(char ch : str){
-        if(ch == ' ' || isdigit(ch)){
-            ret += ch;
+    for(char c : str){
+        if(c >= 65 && c <= 90){
+            if(c + 13 > 90) c += 13 - 26;
+            else c += 13;
+        }else if(c >= 97 && c <= 122){
+            if(c + 13 > 122) c += 13 - 26;
+            else c += 13;
         }
-        else{
-            asc = ch + 13;
-            if(asc > 122 || (asc > 90 && asc < 97) || (asc > 90 && ch <= 90)) asc -= 26;
-            ret += asc;
-        }
+        cout << c;
     }
-    cout << ret;
     
     return 0;
 }
