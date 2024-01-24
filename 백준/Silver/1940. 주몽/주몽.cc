@@ -3,9 +3,11 @@ using namespace std;
 
 int n, m, a, ret;
 vector<pair<int, int>> v;
-
-
 int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
     cin >> n;
     cin >> m;
     for(int i = 0; i < n; i++) {
