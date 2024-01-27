@@ -1,16 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int asc;
-string str;
+string s;
 int main(){
-    getline(cin, str);
+    getline(cin, s);
     
-    for(char c : str){
-        if(c >= 65 && c <= 90){
+    for(char c : s){
+        if(c >= 'A' && c <= 'Z'){
             if(c + 13 > 90) c += 13 - 26;
             else c += 13;
-        }else if(c >= 97 && c <= 122){
+        }else if(c >= 'a' && c <= 'z'){
             if(c + 13 > 122) c += 13 - 26;
             else c += 13;
         }
