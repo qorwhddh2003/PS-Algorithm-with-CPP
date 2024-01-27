@@ -1,34 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int cnt[26], flag;
-string name, ret;
+int flag;
+int arr[26];
 char mid;
+string ret, s;
+
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
-    cout.tie(NULL);
+    cin >> s;
     
-    cin >> name;
-    for(char c : name) cnt[c - 'A']++;
+    for(char c : s) arr[c - 'A']++;
     for(int i = 'Z'; i >= 'A'; i--){
-        if(cnt[i - 'A'] & 1) {
+        if(arr[i - 'A'] & 1){
+            arr[i - 'A']--;
             mid = char(i);
-            cnt[i - 'A']--;
             flag++;
-            
         }
         if(flag == 2) break;
-        for(int j = 0; j < cnt[i - 'A']; j += 2){
-            ret = char(i) + ret;
-            ret += char(i);
+        for(int j = 0; j < arr[i - 'A']; j += 2){
+           ret =  char(i) + ret;
+           ret += char(i);
         }
     }
-    if(flag == 2) cout << "I'm Sorry Hansoo";
-    else{
-        if(mid) ret.insert(ret.begin() + ret.size() / 2, mid);
-        cout << ret;
-    }
     
-    return 0;
+    if(mid) ret.insert(ret.begin() + ret.size() / 2, mid);
+    if(flag == 2) cout << "I'm Sorry Hansoo";
+    else cout << ret;
+    
 }
