@@ -1,22 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-
 ll n;
+
 int main(){
     while(cin >> n){
-        ll cnt = 1, ret = 1;
+        ll num = 1, ret = 1;
         while(true){
-            if(cnt % n == 0){
+            if(num % n == 0){
                 cout << ret << '\n';
                 break;
             }else{
-                cnt = cnt * 10 + 1;
-                cnt %= n;
+                num = (num * 10) + 1;
+                num %= n;
                 ret++;
             }
         }
     }
-    
-    return 0;   
+    return 0;
 }
