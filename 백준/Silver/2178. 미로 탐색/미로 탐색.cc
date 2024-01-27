@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int max_n = 101;
-int n, m, sy, sx, y, x;
+int n, m, y, x;
 int a[max_n][max_n], visited[max_n][max_n];
 int dy[4] = {-1, 0, 1, 0};
 int dx[4] = {0, 1, 0, -1};
@@ -15,10 +15,9 @@ int main(){
         }
     }
     
-    sy = 0; sx = 0;
     queue<pair<int, int>> q;
-    q.push({sy, sx});
-    visited[sy][sx] = 1;
+    q.push({0, 0});
+    visited[0][0] = 1;
     
     while(q.size()){
         tie(y, x) = q.front(); 
