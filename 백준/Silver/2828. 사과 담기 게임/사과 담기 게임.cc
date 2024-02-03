@@ -1,23 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m, j, ret, temp;
+int n, m, j;
 int main(){
-    cin >> n >> m >> j;    
-    int l = 1, r, temp;
+    cin >> n >> m >> j;
+    
+    int l = 1, r, temp, sum=0;
     for(int i = 0; i < j; i++){
-        r = l + m - 1;
         cin >> temp;
-        if(temp >= l && temp <= r) continue;
-        if(l > temp){
-            ret += l - temp;
+        r = l + m - 1;
+        if(l <= temp && temp <= r) continue;
+        if(temp < l){
+            sum += l - temp;
             l = temp;
         }else if(l < temp){
-            ret += temp - r;
+            sum += temp - r;
             l += temp - r;
         }
     }
     
-    cout << ret;
-    return 0;    
+    cout << sum;
+    return 0;
 }
