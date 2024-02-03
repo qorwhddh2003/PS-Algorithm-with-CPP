@@ -2,21 +2,22 @@
 using namespace std;
 
 int n, ret;
-string str;
-int main(){
+string s;
+int main()
+{
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     cin >> n;
-    
-    while(n--){
+    for(int i = 0; i < n; i++){
         stack<char> stk;
-        cin >> str;
-        for(char c : str){
-            if(stk.empty()) stk.push(c);
-            else if(stk.top() == c) stk.pop();
-            else if(stk.top() != c) stk.push(c);
+        cin >> s;
+        
+        for(char c : s){
+            if(stk.size() != 0 && stk.top() == c) stk.pop();
+            else stk.push(c);
         }
-        if(stk.empty()) ret++;
+        
+        if(stk.size() == 0) ret++; 
     }
     
     cout << ret;
