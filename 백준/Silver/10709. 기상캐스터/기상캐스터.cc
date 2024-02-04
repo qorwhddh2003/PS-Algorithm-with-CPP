@@ -6,6 +6,8 @@ string s;
 int a[100][100];
 
 int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
     cin >> h >> w;
     for(int i = 0; i < h; i++){
         cin >> s;
