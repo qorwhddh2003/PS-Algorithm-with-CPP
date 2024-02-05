@@ -4,6 +4,7 @@ using namespace std;
 int T;
 string s;
 int main(){
+    ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
     cin >> T;
     while(T--){
         cin >> s;
