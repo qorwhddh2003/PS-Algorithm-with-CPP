@@ -2,7 +2,7 @@
 using namespace std;
 
 int N, M, ret = 0;
-int a[8][8], visited[8][8], temp[8][8];
+int a[8][8], visited[8][8];
 int dy[4] = {-1, 0, 1, 0};
 int dx[4] = {0, 1, 0, -1};
 vector<pair<int, int>> wall, virus;
@@ -11,10 +11,11 @@ void SafetyArea(){
     int cnt = 0;
     for(int i = 0; i < N; i++){
         for(int j = 0; j < M; j++){
-            if(temp[i][j] == 0) cnt++;
+            if(a[i][j] == 0 && !visited[i][j]) cnt++;
         }
     }
     ret = max(ret, cnt);
+    return;
 }
 
 void DiffusionVirus(int y, int x){
@@ -23,25 +24,20 @@ void DiffusionVirus(int y, int x){
     for(int i = 0; i < 4; i++){
         int ny = y + dy[i];
         int nx = x + dx[i];
-        
         if(ny < 0 || nx < 0 || ny >= N || nx >= M) continue;
-        if(visited[ny][nx] || temp[ny][nx] != 0) continue;
-        temp[ny][nx] = 2;
+        if(visited[ny][nx] || a[ny][nx] == 1) continue;
         DiffusionVirus(ny, nx);
     }
+    return;
 }
 
 void CreateWall(int start, vector<pair<int, int>> b){
     if(b.size() == 3){
-        copy(&a[0][0], &a[0][0] + 8 * 8, &temp[0][0]);
         fill(&visited[0][0], &visited[0][0] + 8 * 8, 0);
-        for(auto it : b){
-            temp[it.first][it.second] = 1;
-        }
-        for(auto it : virus){
-            DiffusionVirus(it.first, it.second);
-        }
+        for(auto it : b) a[it.first][it.second] = 1;
+        for(auto it : virus) DiffusionVirus(it.first, it.second);
         SafetyArea();
+        for(auto it : b) a[it.first][it.second] = 0;
         return;
     }
     for(int i = start + 1; i < wall.size(); i++){
