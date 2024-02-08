@@ -16,17 +16,17 @@ int dfs(int here){
 }
 
 int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
     cin >> N >> M;
     for(int i = 0; i < M; i++){
         cin >> A >> B;
-        // adj[A].push_back(B);
         adj[B].push_back(A);
     }
     
     for(int i = 1; i <= N; i++){
         fill(&visited[0], &visited[10001], 0);
         int cnt = dfs(i);
-        // cout << i << " : " << cnt << "\n";
         if(cnt > ret){
             v.clear();
             v.push_back(i);
@@ -35,6 +35,5 @@ int main(){
             v.push_back(i);
         }
     }
-    sort(v.begin(), v.end());
     for(int i : v) cout << i << " ";
 }
