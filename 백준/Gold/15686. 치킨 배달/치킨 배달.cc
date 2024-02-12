@@ -1,27 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int N, M, temp, ret = 1e6, r1, r2, c1, c2;
-vector<pair<int, int>> chicken_list, house_list, b;
+int N, M, temp, ret = 1e6;
+vector<pair<int, int>> house, chicken;
 
-void combi(int start, vector<pair<int, int>> b){
-    if(b.size() == M){
-        int res = 0;
-        for(int i = 0; i < house_list.size(); i++){
-            int mn = 1e6;
-            tie(r1, c1) = house_list[i];
-            for(int j = 0; j < b.size(); j++){
-                tie(r2, c2) = b[j];
-                mn = min(mn, abs(r1 - r2) + abs(c1 - c2));
-            }
-            res += mn;
+int getDistance(vector<int> b){
+    int res = 0;
+    for(pair<int, int> i : house){
+        int mn = 1e6;
+        for(int j : b){
+            mn = min(mn, abs(i.first - chicken[j].first) + abs(i.second - chicken[j].second));
         }
-        ret = min(ret, res);
-        return; 
+        res += mn;
+    }
+    return res;
+}
+
+void combi(int start, vector<int> b){
+    if(b.size() == M){
+        ret = min(ret, getDistance(b));
+        return;
     }
     
-    for(int i = start + 1; i < chicken_list.size(); i++){
-        b.push_back(chicken_list[i]);
+    for(int i = start + 1; i < chicken.size(); i++){
+        b.push_back(i);
         combi(i, b);
         b.pop_back();
     }
@@ -33,10 +35,12 @@ int main(){
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
             cin >> temp;
-            if(temp == 1) house_list.push_back({i+1, j+1});
-            else if(temp == 2) chicken_list.push_back({i+1, j+1});
+            if(temp == 1) house.push_back({i + 1, j + 1});
+            else if(temp == 2) chicken.push_back({i + 1, j + 1});
         }
     }
+    
+    vector<int> b;
     combi(-1, b);
     cout << ret;
     return 0;
