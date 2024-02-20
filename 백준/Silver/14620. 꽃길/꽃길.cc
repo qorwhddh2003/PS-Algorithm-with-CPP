@@ -1,21 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 10;
-int n, g, sum, ret = 1e6;
-int a[MAX][MAX], visited[MAX][MAX];
+int n, ret = 987654321;
+int a[10][10], visited[10][10];
 int dy[5] = {0, -1, 0, 1, 0}, dx[5] = {0, 0, 1, 0, -1};
 
-bool check(int y, int x){
+bool Check(int y, int x){
     for(int i = 0; i < 5; i++){
         int ny = y + dy[i];
         int nx = x + dx[i];
-        if(ny < 0 || nx < 0 || ny >= n || nx >= n || visited[ny][nx]) return 0;
+        if(ny < 0 || nx < 0 || ny >= n || nx >= n || visited[ny][nx]) return false;
     }
-    return 1;
+    return true;
 }
 
-int setFlower(int y, int x){
+int SetFlower(int y, int x){
     int s = 0;
     for(int i = 0; i < 5; i++){
         int ny = y + dy[i];
@@ -26,7 +25,7 @@ int setFlower(int y, int x){
     return s;
 }
 
-void resetFlower(int y, int x){
+void ResetFlower(int y, int x){
     for(int i = 0; i < 5; i++){
         int ny = y + dy[i];
         int nx = x + dx[i];
@@ -34,37 +33,31 @@ void resetFlower(int y, int x){
     }
 }
 
-void go(int sum, int cnt){
+void Go(int cnt, int sum){
     if(cnt == 3){
-        ret = min(ret, sum);
+        ret = min(sum, ret);
         return;
     }
     
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
-            if(check(i, j)){
-                go(sum + setFlower(i, j), cnt + 1);
-                resetFlower(i, j);
+            if(Check(i, j)){
+                Go(cnt + 1, sum + SetFlower(i, j));
+                ResetFlower(i, j);
             }
         }
     }
-    
-
-    return;
 }
 
-
 int main(){
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-    cout.tie(NULL);
     cin >> n;
     for(int i = 0; i < n; i++){
-        for(int j =0 ; j < n; j++){
+        for(int j = 0; j < n; j++){
             cin >> a[i][j];
         }
     }
-    go(0, 0);
+    
+    Go(0, 0);
     cout << ret;
     return 0;
 }
