@@ -10,7 +10,7 @@ bool check(){
         int start = i;
         for(int j = 1; j <= h; j++){
             if(visited[j][start]) start++;
-            else if(visited[j][start - 1]) start --;
+            else if(visited[j][start - 1]) start--;
         }
         if(start != i) return false;
     }
@@ -23,7 +23,6 @@ void go(int here, int cnt){
         ret = min(ret, cnt);
         return;
     }
-    
     for(int i = here; i <= h; i++){
         for(int j = 1; j < n; j++){
             if(visited[i][j] || visited[i][j - 1] || visited[i][j + 1]) continue;
@@ -32,7 +31,6 @@ void go(int here, int cnt){
             visited[i][j] = 0;
         }
     }
-    return;
 }
 
 int main(){
