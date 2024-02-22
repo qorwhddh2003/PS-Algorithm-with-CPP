@@ -1,16 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int INF = 9e8;
-int n, ret = INF, a[24];
+const int MAX = 20;
+int n, ret = 9e8;
+int a[MAX + 4];
 string s;
 
 void go(int here){
-    if(here == n + 1){
+    if(here == n){
         int sum = 0;
         for(int i = 1; i <= (1 << (n - 1)); i *= 2){
             int cnt = 0;
-            for(int j = 1; j <= n; j++){
+            for(int j = 0; j < n; j++){
                 if(a[j] & i) cnt++;
             }
             sum += min(cnt, n - cnt);
@@ -29,7 +30,7 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
     cin >> n;
-    for(int i = 1; i <= n; i++){
+    for(int i = 0; i < n; i++){
         cin >> s;
         int value = 1;
         for(int j = 0; j < n; j++){
@@ -37,7 +38,6 @@ int main(){
             value *= 2;
         }
     }
-    go(1);
-    cout << (ret == INF ? -1 : ret);
-    return 0;
+    go(0);
+    cout << ret << "\n";
 }
