@@ -13,10 +13,11 @@ void go(int y, int x, int cnt){
         int ny = y + dy[i];
         int nx = x + dx[i];
         if(ny < 0 || nx < 0 || ny >= r || nx >= c) continue;
-        if(visited_word[a[ny][nx] - 'A']) continue;
-        visited_word[a[ny][nx] - 'A'] = 1;
+        int next = a[ny][nx] - 'A';
+        if(visited_word[next]) continue;
+        visited_word[next] = 1;
         go(ny, nx, cnt + 1);
-        visited_word[a[ny][nx] - 'A'] = 0;
+        visited_word[next] = 0;
     }
 }
 
@@ -31,6 +32,7 @@ int main(){
             a[i][j] = s[j];
         }
     }
+    
     visited_word[a[0][0] - 'A'] = 1;
     go(0, 0, 1);
     cout << ret;
