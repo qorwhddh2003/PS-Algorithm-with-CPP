@@ -1,49 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, a[3], visited[61][61][61];
-int damage[6][3] ={
-    {9, 3, 1},
-    {9, 1, 3},
-    {3, 1, 9},
-    {3, 9, 1},
-    {1, 3, 9},
-    {1, 9, 3}
+const int damage[6][3] = {
+  {9, 3, 1},
+  {9, 1, 3},
+  {3, 1, 9},
+  {3, 9, 1},
+  {1, 3, 9},
+  {1, 9, 3},
 };
 
-struct A{
+
+int n;
+int a[61][61][61];
+struct A {
     int a, b, c;
-};
+} scv;
 
-int solve(int a, int b, int c){
-    queue<A> q;
-    q.push({a, b, c});
-    visited[a][b][c] = 1;
+int main(){
+    cin >> n;
+    cin >> scv.a >> scv.b >> scv.c;
     
+    queue<A> q;
+    q.push(scv);
+    a[scv.a][scv.b][scv.c] = 1;
     while(q.size()){
-        int a = q.front().a;
-        int b = q.front().b;
-        int c = q.front().c;
+        A now = q.front();
         q.pop();
-        if(visited[0][0][0]) break;
+        if(now.a == 0 && now.b == 0 && now.c == 0) break;
         for(int i = 0; i < 6; i++){
-            int na = max(0, a - damage[i][0]);
-            int nb = max(0, b - damage[i][1]);
-            int nc = max(0, c - damage[i][2]);
-            if(visited[na][nb][nc]) continue;
-            visited[na][nb][nc] = visited[a][b][c] + 1;
+            int na = max(0, now.a - damage[i][0]);
+            int nb = max(0, now.b - damage[i][1]);
+            int nc = max(0, now.c - damage[i][2]);
+            if(a[na][nb][nc]) continue;
+            a[na][nb][nc] = a[now.a][now.b][now.c] + 1;
             q.push({na, nb, nc});
         }
     }
-    return visited[0][0][0] - 1;
-}
-
-int main()
-{
-    cin >> n;
-    for(int i = 0; i < n; i++){
-        cin >> a[i];
-    }
-    cout << solve(a[0], a[1], a[2]);
+    
+    cout << a[0][0][0]-1;
     return 0;
 }
