@@ -1,18 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int r, c, k, y, x, ret;
-char a[5][5];
-int visited[5][5];
-string s;
+const int MAX = 5;
+int r, c, k, ret;
+char a[MAX+1][MAX+1];
+int visited[MAX+1][MAX+1];
 int dy[4] = {-1, 0, 1, 0}, dx[4] = {0, 1, 0, -1};
 
 void go(int y, int x, int cnt){
-    if(y == 0 && x == c - 1 && k == cnt){
+    if(cnt == k && y == 0 && x == c-1){
         ret++;
         return;
     }
-    
     for(int i = 0; i < 4; i++){
         int ny = y + dy[i];
         int nx = x + dx[i];
@@ -30,11 +29,11 @@ int main(){
     cout.tie(NULL);
     cin >> r >> c >> k;
     for(int i = 0; i < r; i++){
-        cin >> s;
         for(int j = 0; j < c; j++){
-            a[i][j] = s[j];
+            cin >> a[i][j];
         }
     }
+    
     visited[r - 1][0] = 1;
     go(r - 1, 0, 1);
     cout << ret;
