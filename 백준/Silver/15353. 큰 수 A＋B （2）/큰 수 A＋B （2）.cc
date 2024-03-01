@@ -2,26 +2,31 @@
 using namespace std;
 
 string a, b;
-int arrA[10004], arrB[10004], ret[10004];
+
+string string_add(string a, string b){
+    int sum = 0;
+    string ret;
+    while(a.size() || b.size() || sum){
+        if(a.size()){
+            sum += a.back() - '0';
+            a.pop_back();
+        }
+        if(b.size()){
+            sum += b.back() - '0';
+            b.pop_back();
+        }
+        ret += (sum % 10) + '0';
+        sum /= 10;
+    }
+    reverse(ret.begin(), ret.end());
+    return ret;
+} 
 
 int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     cout.tie(NULL);
     cin >> a >> b;
-    int idx = 0;
-    for(int i = a.size() - 1; i >= 0; i--) arrA[idx++] = a[i] - '0';
-    idx = 0;
-    for(int i = b.size() - 1; i >= 0; i--) arrB[idx++] = b[i] - '0';
-    
-    int mx = max(a.size(), b.size());
-    for(int i = 0; i < mx; i++){
-        int sum = arrA[i] + arrB[i] + ret[i];
-        ret[i] = sum % 10;
-        ret[i + 1] = sum / 10;
-    }
-    if(ret[mx] > 0) cout << ret[mx];
-    for(int i = mx - 1; i >= 0; i--) cout << ret[i];
-    
+    cout << string_add(a, b);
     return 0;
 }
