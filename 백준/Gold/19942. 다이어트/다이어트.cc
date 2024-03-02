@@ -1,15 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int INF = 987654321;
-int n, temp[4], a, b, c, d, e, ret = INF;
-bool flag = 0;
-struct Nutrient{
+int n, cost = 9e8;
+struct info{
     int mp, mf, ms, mv, cost;
-    vector<int> idx;
-} info[16];
-vector<int> retV;
+} a[16], target;
+
+vector<int> ret;
 map<int, vector<vector<int>>> mp;
+
 
 int main()
 {
@@ -17,40 +16,39 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
     cin >> n;
-    for(int i = 0; i < 4; i++) cin >> temp[i];
+    cin >> target.mp >> target.mf >> target.ms >> target.mv;
     for(int i = 0; i < n; i++){
-        cin >> a >> b >> c >> d >> e;
-        info[i] = {a, b, c, d, e};
+        cin >> a[i].mp >> a[i].mf >> a[i].ms >> a[i].mv >> a[i].cost;
     }
     
     for(int i = 1; i < (1 << n); i++){
-        Nutrient nutrient_temp = {0, 0, 0, 0, 0};
+        info temp = {0,};
+        vector<int> v;
         for(int j = 0; j < n; j++){
             if(i & (1 << j)){
-                nutrient_temp.mp += info[j].mp;
-                nutrient_temp.mf += info[j].mf;
-                nutrient_temp.ms += info[j].ms;
-                nutrient_temp.mv += info[j].mv;
-                nutrient_temp.cost += info[j].cost;
-                nutrient_temp.idx.push_back(j + 1);
+                temp.mp += a[j].mp;
+                temp.mf += a[j].mf;
+                temp.ms += a[j].ms;
+                temp.mv += a[j].mv;
+                temp.cost += a[j].cost;
+                v.push_back(j + 1);
             }
         }
         
-        if(nutrient_temp.mp >= temp[0] && nutrient_temp.mf >= temp[1] && nutrient_temp.ms >= temp[2] && nutrient_temp.mv >= temp[3]){
-            if(ret >= nutrient_temp.cost){
-                ret = nutrient_temp.cost;
-                mp[ret].push_back(nutrient_temp.idx);
+        if(target.mp <= temp.mp && target.mf <= temp.mf && target.ms <= temp.ms && target.mv <= temp.mv){
+            if(cost >= temp.cost){
+                cost = temp.cost;
+                mp[cost].push_back(v);
             }
         }
     }
     
-    if(ret == INF) cout << -1;
+    sort(mp[cost].begin(), mp[cost].end());
+    
+    if(cost == 9e8) cout << -1;
     else{
-        sort(mp[ret].begin(), mp[ret].end());
-        cout << ret << "\n";
-        for(int i : mp[ret][0]){
-            cout << i << " ";
-        }
+        cout << cost << "\n";
+        for(int i : mp[cost][0]) cout << i << " ";
     }
     return 0;
 }
