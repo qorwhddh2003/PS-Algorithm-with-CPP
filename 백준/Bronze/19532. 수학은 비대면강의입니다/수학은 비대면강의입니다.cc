@@ -9,14 +9,8 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
     cin >> a >> b >> c >> d >> e >> f;
-    
-    for(int y = -999; y <= 999; y++){
-        for(int x = -999; x <= 999; x++){
-            if(a * x + b * y == c && d * x + e * y == f){
-                cout << x << " " << y;
-                break;
-            }
-        }
-    }
+    int x = (c * e - b * f) / (a * e - b * d);
+    int y = (d * c - a * f) / (b * d - a * e);
+    cout << x << " " << y;
     return 0;
 }
