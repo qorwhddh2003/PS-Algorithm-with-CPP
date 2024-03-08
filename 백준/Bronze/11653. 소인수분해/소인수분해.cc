@@ -14,7 +14,6 @@ int main()
             n /= i;
         }
     }
-    
     if(n > 1) cout << n << "\n";
     return 0;
 }
