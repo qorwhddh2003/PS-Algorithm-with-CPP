@@ -2,9 +2,10 @@
 using namespace std;
 
 int n, m;
-string temp;
-vector<string> vec;
-map<string, bool> mp;
+set<string> names;
+set<string> offBrand;
+string name;
+
 int main()
 {
     ios_base::sync_with_stdio(0);
@@ -12,19 +13,20 @@ int main()
     cout.tie(NULL);
     cin >> n >> m;
     for(int i = 0; i < n; i++){
-        cin >> temp;
-        mp[temp] = true;
+        cin >> name;
+        names.insert(name);
     }
     for(int i = 0; i < m; i++){
-        cin >> temp;
-        if(mp[temp]){
-            vec.push_back(temp);
+        cin >> name;
+        if(names.find(name) != names.end()){
+            offBrand.insert(name);
         }
     }
-    sort(vec.begin(), vec.end());
-    cout << vec.size() << "\n";
-    for(string s : vec){
-        cout << s << "\n";
+    
+    cout << offBrand.size() << "\n";
+    for(string s : offBrand){
+        cout << s << "\n"; 
     }
+    
     return 0;
 }
