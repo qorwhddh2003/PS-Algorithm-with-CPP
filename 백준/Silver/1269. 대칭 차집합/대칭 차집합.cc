@@ -2,7 +2,7 @@
 using namespace std;
 
 int n, m, temp, ret;
-map<int, bool> A, B;
+map<int, bool> mp;
 
 int main()
 {
@@ -10,23 +10,15 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
     cin >> n >> m;
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < n + m; i++){
         cin >> temp;
-        A[temp] = true;
-    }
-    for(int i = 0; i < m; i++){
-        cin >> temp;
-        B[temp] = true;
-    }
-    
-    for(auto it : A){
-        if(A[it.first] && !B[it.first]) ret++;
+        if(mp[temp]){
+            mp.erase(temp);
+        }else{
+            mp[temp] = true;
+        }
     }
     
-    for(auto it : B){
-        if(!A[it.first] && B[it.first]) ret++;
-    }
-    
-    cout << ret;
+    cout << mp.size();
     return 0;
 }
