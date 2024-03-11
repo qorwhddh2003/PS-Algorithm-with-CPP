@@ -1,8 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define prev aaaa
 
 int n, temp;
-vector<int> vec1, vec2;
+vector<int> v1;
+vector<int> v2;
 int main()
 {
     ios_base::sync_with_stdio(0);
@@ -11,16 +13,13 @@ int main()
     cin >> n;
     for(int i = 0; i < n; i++){
         cin >> temp;
-        vec1.push_back(temp);
-        vec2.push_back(temp);
+        v1.push_back(temp);
+        v2.push_back(temp);
     }
-    sort(vec1.begin(), vec1.end());
-    vec1.erase(unique(vec1.begin(), vec1.end()), vec1.end());
-    
+    sort(v1.begin(), v1.end());
+    v1.erase(unique(v1.begin(), v1.end()), v1.end());
     for(int i = 0; i < n; i++){
-        auto it = lower_bound(vec1.begin(), vec1.end(), vec2[i]);
-        cout << it - vec1.begin() << " ";
+        cout << lower_bound(v1.begin(), v1.end(), v2[i]) - v1.begin() << " ";
     }
-    
     return 0;
 }
