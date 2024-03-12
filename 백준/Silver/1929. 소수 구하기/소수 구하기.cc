@@ -1,26 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int MAX = 1000001;
 int n, m;
+bool isPrime[MAX];
+
 int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     cout.tie(NULL);
     cin >> n >> m;
-    for(int i = n; i <= m; i++){
-        if(i <= 1){
-            continue;
-        }
-        
-        bool flag = true;
-        for(int j = 2; j * j <= i; j++){
-            if(i % j == 0){
-                flag = false;
-                break;
+    fill(isPrime, isPrime + MAX, 1);
+    isPrime[1] = false;
+    for(int i = 2; i * i <= m; i++){
+        if(isPrime[i]){
+            for(int j = i * i; j <= m; j += i){
+                isPrime[j] = false;
             }
         }
-        if(flag){
+    }
+    
+    for(int i = n; i <= m; i++){
+        if(isPrime[i]){
             cout << i << "\n";
         }
     }
