@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-ll t, n;
-
+ll  t, n;
 int main()
 {
     ios_base::sync_with_stdio(0);
@@ -11,6 +10,7 @@ int main()
     cin >> t;
     while(t--){
         cin >> n;
+        
         if(n <= 2){
             cout << 2 << "\n";
             continue;
@@ -30,6 +30,6 @@ int main()
             }
         }
     }
-    
+
     return 0;
 }
