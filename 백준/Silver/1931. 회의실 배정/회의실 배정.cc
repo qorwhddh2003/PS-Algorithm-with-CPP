@@ -16,15 +16,11 @@ int main()
     }
     sort(v.begin(), v.end());
     
-    int prev = 0;
-    for(int i = 0; i < v.size(); i++){
+    tie(to, from) = v[0];
+    for(int i = 1; i < v.size(); i++){
+        if(v[i].second < to) continue;
         tie(to, from) = v[i];
-        if(i > 0){
-            if(v[prev].first <= from){
-                ret++;
-                prev = i;
-            }
-        }
+        ret++;
     }
     cout << ret;
     return 0;
