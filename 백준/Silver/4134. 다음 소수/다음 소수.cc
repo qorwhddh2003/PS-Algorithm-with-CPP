@@ -1,21 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 typedef long long ll;
-ll  t, n;
+ll T, n;
+
 int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     cout.tie(NULL);
-    cin >> t;
-    while(t--){
+    cin >> T;
+    while(T--){
         cin >> n;
-        
         if(n <= 2){
             cout << 2 << "\n";
             continue;
         }
-        
         for(ll i = n;; i++){
             bool flag = true;
             for(ll j = 2; j * j <= i; j++){
@@ -30,6 +30,6 @@ int main()
             }
         }
     }
-
+    
     return 0;
 }
