@@ -3,28 +3,31 @@ using namespace std;
 
 int n;
 float temp;
-priority_queue<float> pq;
 vector<float> ret;
-
+priority_queue<float> pq;
 int main()
 {
     ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
+    cout.tie(NULL);
     cin >> n;
     for(int i = 0; i < n; i++){
         cin >> temp;
-        if(pq.size() == 7){
-            pq.push(temp);
+        pq.push(temp);
+        if(pq.size() == 8){
             pq.pop();
-        }else pq.push(temp);
+        }
     }
     
     for(int i = 0; i < 7; i++){
-        ret.push_back(pq.top()); pq.pop();
+        ret.push_back(pq.top());
+        pq.pop();
     }
     
-    for(int i = 0; i < 7; i++){
-        printf("%.3lf\n", ret[7 - i - 1]);
+    sort(ret.begin(), ret.end());
+    for(int i = 0; i < ret.size(); i++){
+        printf("%.3lf\n", ret[i]);
     }
-
+    
     return 0;
 }
