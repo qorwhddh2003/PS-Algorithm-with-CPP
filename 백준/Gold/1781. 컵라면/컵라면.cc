@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
-ll n, a, b, ret;
-vector<pair<ll, ll>> v;
-priority_queue<ll, vector<ll>, greater<ll>> pq;
+int n, a, b, ret;
+vector<pair<int, int>> v;
+priority_queue<int, vector<int>, greater<int>> pq;
 int main()
 {
     ios_base::sync_with_stdio(0);
@@ -16,7 +15,6 @@ int main()
         v.push_back({a, b});
     }
     sort(v.begin(), v.end());
-    
     for(int i = 0; i < n; i++){
         pq.push(v[i].second);
         if(pq.size() > v[i].first){
