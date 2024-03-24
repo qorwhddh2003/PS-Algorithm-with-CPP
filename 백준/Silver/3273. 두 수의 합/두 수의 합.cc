@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, x, temp, ret;
-vector<int> vec;
+int n, x, ret;
+vector<int> v(100000);
 int main()
 {
     ios_base::sync_with_stdio(0);
@@ -10,17 +10,16 @@ int main()
     cout.tie(NULL);
     cin >> n;
     for(int i = 0; i < n; i++){
-        cin >> temp;
-        vec.push_back(temp);
+        cin >> v[i];
     }
     cin >> x;
-    sort(vec.begin(), vec.end());
-    
-    int left = 0, right = vec.size() - 1;
+    sort(v.begin(), v.begin() + n);
+    int left = 0, right = n - 1;
     while(left < right){
-        if(vec[left] + vec[right] > x) right--;
-        else if(vec[left] + vec[right] < x) left++;
-        else left++, right--, ret++;
+        int sum = v[left] + v[right];
+        if(sum > x) right--;
+        else if(sum < x) left++;
+        else if(sum == x) ret++, left++, right--;
     }
     cout << ret;
     return 0;
