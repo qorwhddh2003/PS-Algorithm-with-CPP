@@ -2,7 +2,8 @@
 using namespace std;
 typedef long long ll;
 ll n, s, e, ret;
-ll cnt[100000], a[100000];
+ll visited[100001];
+int a[100000];
 
 int main()
 {
@@ -15,15 +16,16 @@ int main()
     }
     
     while(e < n){
-        if(cnt[a[e]]){
+        if(visited[a[e]]){
             ret += (e - s);
-            cnt[a[s]]--;
+            visited[a[s]] = 0;
             s++;
         }else{
-            cnt[a[e]]++;
+            visited[a[e]] = 1;
             e++;
         }
     }
+    
     ret += (e - s + 1) * (e - s) / 2;
     cout << ret;
     return 0;
