@@ -1,42 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int INF = 9e8;
-int n, k, ret;
-int a[101], visisted[101];
-set<int> plug;
-int main()
-{
+int N, K, ret;
+int a[100], visited[101];
+vector<int> plug;
+
+int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     cout.tie(NULL);
-    cin >> n >> k;
-    for(int i = 0; i < k; i++){
+    cin >> K >> N;
+    for(int i = 0; i < N; i++){
         cin >> a[i];
     }
     
-    for(int i = 0; i < k; i++){
-        if(visisted[a[i]]) continue;
-        if(plug.size() == n){
-            int last_idx = 0, value;
-            for(auto it = plug.begin(); it != plug.end(); it++){
-                int pick = INF;
-                for(int j = i + 1; j < k; j++){
-                    if(*it == a[j]){
-                        pick = j; break;
+    for(int i = 0; i < N; i++){
+        if(visited[a[i]]) continue;
+        if(plug.size() == K){
+            int last_idx = 0, pos;
+            for(int num : plug){
+                int pick = 9e8;
+                for(int j = i + 1; j < N; j++){
+                    if(a[j]== num){
+                        pick = j;
+                        break;
                     }
                 }
+                
                 if(last_idx < pick){
                     last_idx = pick;
-                    value = *it;
+                    pos = num;
                 }
             }
-            visisted[value] = 0;
-            plug.erase(value);
+            
+            plug.erase(find(plug.begin(), plug.end(), pos));
+            visited[pos] = 0;
             ret++;
         }
-        visisted[a[i]] = 1;
-        plug.insert(a[i]);
+        plug.push_back(a[i]);
+        visited[a[i]] = 1;
     }
     
     cout << ret;
