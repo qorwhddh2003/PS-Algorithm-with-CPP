@@ -1,17 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, ret;
-
-int main()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    cin >> n;
-    while(n > 0){
-        if(n & 1) ret++;
-        n /= 2;
+int X, ret;
+int main(){
+    cin >> X;
+    while(X > 0){
+        if(X & 1) ret++;
+        X /= 2;
     }
     cout << ret;
     return 0;
