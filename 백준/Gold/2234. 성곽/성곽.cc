@@ -1,62 +1,61 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define MAX 50
 
-const int MAX = 50;
-const int dy[4] = {0, -1 , 0, 1}, dx[4] = {-1, 0, 1, 0};
-int n, m;
-int a[MAX+1][MAX+1], conneted_comp[2504], visited[MAX+1][MAX+1];
+const int dy[4] = {0, -1, 0, 1}, dx[4] = {-1, 0, 1, 0};
+int N, M;
+int ret[3], visited[MAX][MAX], a[MAX][MAX], comp[MAX * MAX + 1];
 
-int dfs(int y, int x, int cnt){
+int go(int y, int x, int cnt){
     visited[y][x] = cnt;
     int ret = 1;
     for(int i = 0; i < 4; i++){
         int ny = y + dy[i];
         int nx = x + dx[i];
-        if(ny < 0 || nx < 0 || ny >= n || nx >= m || visited[ny][nx]) continue;
-        if(a[y][x] & (1 << i)) continue;
-        ret += dfs(ny, nx, cnt);
+        if(ny < 0 || nx < 0 || ny >= N || nx >= M) continue;
+        if((a[y][x] & (1 << i)) || visited[ny][nx]) continue;
+        ret += go(ny, nx, cnt);
     }
     return ret;
 }
 
-int main()
-{
+int main(){
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     cout.tie(NULL);
-    cin >> m >> n;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
+    cin >> M >> N;
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < M; j++){
             cin >> a[i][j];
         }
     }
     
-    int cnt = 1;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < M; j++){
             if(visited[i][j]) continue;
-            conneted_comp[cnt] = dfs(i, j, cnt);
-            cnt++;
+            ret[0]++;
+            comp[ret[0]] = go(i, j, ret[0]);
+            ret[1] = max(ret[1], comp[ret[0]]);
         }
     }
     
-    int mx = 0, remove_wall = 0;
-    for(int i = 0; i < cnt; i++) mx = max(mx, conneted_comp[i]);
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            for(int k = 0; k < 4; k++){
-                int ny = i + dy[k];
-                int nx = j + dx[k];
-                if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-                if(a[i][j] << (1 << k)){
-                    if(visited[i][j] != visited[ny][nx]){
-                        remove_wall = max(remove_wall, conneted_comp[visited[i][j]] + conneted_comp[visited[ny][nx]]);
-                    }
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < M; j++){
+            if(j + 1 < M){
+                int first = visited[i][j], second = visited[i][j + 1];
+                if(first != second){
+                    ret[2] = max(ret[2], comp[first] + comp[second]);
+                }
+            }
+            if(i + 1 < N){
+                int first = visited[i][j], second = visited[i + 1][j];
+                if(first != second){
+                    ret[2] = max(ret[2], comp[first] + comp[second]);
                 }
             }
         }
     }
     
-    cout << cnt-1 << "\n" << mx << "\n" << remove_wall;
+    for(int i = 0; i < 3; i++) cout << ret[i] << "\n";
     return 0;
 }
