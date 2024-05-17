@@ -1,26 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define MAX_N 1000
 
-int N;
-int a[1001], cnt[1001], ret;
+int N, num, ret;
+int a[MAX_N];
 
-int main(){
+int main()
+{
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     cout.tie(NULL);
-    
     cin >> N;
     for(int i = 0; i < N; i++){
-        cin >> a[i];
-    }
-    
-    for(int i = 0; i < N; i++){
-        int idx = 0;
-        for(int j = 0; j < i; j++){
-            if(a[j] < a[i] && cnt[j] > idx) idx++;
-        }
-        cnt[i] = idx + 1;
-        ret = max(ret, cnt[i]);
+        cin >> num;
+        auto lower_pos = lower_bound(a, a + ret, num);
+        if(*lower_pos == 0) ret++;
+        *lower_pos = num;
     }
     
     cout << ret;
