@@ -5,6 +5,13 @@ const int INF = 9e8;
 int N;
 int dp[MAX_N];
 
+void trace(int n) {
+	if (n == 0) return;
+	cout << n << " ";
+	if ((n % 3 == 0) && (dp[n] == dp[n / 3] + 1)) trace(n / 3);
+	else if ((n % 2 == 0) && (dp[n] == dp[n / 2] + 1)) trace(n / 2);
+	else trace(n - 1);
+}
 
 int main()
 {
@@ -13,29 +20,16 @@ int main()
     cout.tie(NULL);
     cin >> N;
     
-    for(int i = 1; i <= N; i++){
+    memset(dp, INF, sizeof(dp));
+    dp[1] = 0;
+    for(int i = 2; i <= N; i++){
         dp[i] = i;
         if(i % 3 == 0) dp[i] = min(dp[i], dp[i / 3] + 1);
         if(i % 2 == 0) dp[i] = min(dp[i], dp[i / 2] + 1);
         dp[i] = min(dp[i], dp[i - 1] + 1);
     }
     
-    cout << dp[N] - 1 << "\n";
-    cout << N << " ";
-    while(true){
-        --dp[N];
-        if(!dp[N]) break;
-        if(N % 3 == 0 && dp[N / 3] == dp[N]){
-            cout << N / 3;
-            N /= 3;
-        }else if(N % 2 == 0 && dp[N / 2] == dp[N]){
-            cout << N / 2;
-            N /= 2;
-        }else{
-            cout << N - 1;
-            N -= 1;
-        }
-        cout << " ";
-    }
+    cout << dp[N] << "\n";
+    trace(N);
     return 0;
 }
